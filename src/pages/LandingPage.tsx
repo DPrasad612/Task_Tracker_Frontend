@@ -1,0 +1,99 @@
+import React, { useEffect } from "react";
+import { Link, useLocation } from "wouter";
+import { useAuth } from "@/context/AuthContext";
+import { 
+  CheckCircle2, 
+  ArrowRight, 
+  ShieldCheck, 
+  TrendingUp, 
+  Layout,
+  Layers
+} from "lucide-react";
+
+export default function LandingPage() {
+  const { user, loading } = useAuth();
+  const [, setLocation] = useLocation();
+
+  useEffect(() => {
+    if (!loading && user) {
+      setLocation("/tracker");
+    }
+  }, [user, loading, setLocation]);
+
+  if (loading) {
+    return (
+      <div className="flex-1 flex items-center justify-center min-h-screen">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
+          <p className="text-sm text-text-muted font-semibold">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex-1 flex flex-col items-center justify-center p-6 md:p-12 relative overflow-hidden select-none bg-bg-base bg-grid-pattern">
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-200 dark:bg-blue-900/20 rounded-full blur-3xl opacity-30 -z-10"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-200 dark:bg-purple-900/20 rounded-full blur-3xl opacity-30 -z-10"></div>
+
+      <div className="max-w-4xl w-full text-center flex flex-col items-center gap-8 py-12 md:py-24">
+        <div className="flex flex-col gap-4">
+          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-text-base leading-tight">
+            Build habits that <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-600">actually stick</span>
+          </h1>
+          <p className="max-w-2xl text-lg md:text-xl text-text-muted font-medium mx-auto">
+            A focused weekly habit tracker with nested subtasks, visual streaks, and honest completion locks that keep you accountable.
+          </p>
+        </div>
+
+        <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+          <Link
+            href="/signup"
+            className="px-8 py-4 bg-btn-primary text-text-primary rounded-2xl shadow-lg hover:shadow-xl font-bold flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+          >
+            Get Started Free
+            <ArrowRight className="w-5 h-5" />
+          </Link>
+          <Link
+            href="/login"
+            className="px-8 py-4 bg-bg-card text-text-base border border-border-base rounded-2xl shadow-sm hover:shadow-md hover:bg-bg-muted font-bold flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+          >
+            Sign In
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mt-12 md:mt-24 text-left">
+          <div className="p-6 bg-bg-card border border-border-base rounded-3xl shadow-sm flex flex-col gap-3">
+            <div className="w-10 h-10 bg-blue-50 dark:bg-blue-950 text-blue-500 rounded-2xl flex items-center justify-center shadow-inner">
+              <Layout className="w-5 h-5" />
+            </div>
+            <h3 className="text-lg font-bold text-text-base">Weekly Date Grid</h3>
+            <p className="text-sm text-text-muted font-medium">
+              View your week at a glance with weekday names and exact calendar dates.
+            </p>
+          </div>
+
+          <div className="p-6 bg-bg-card border border-border-base rounded-3xl shadow-sm flex flex-col gap-3">
+            <div className="w-10 h-10 bg-green-50 dark:bg-green-950 text-green-500 rounded-2xl flex items-center justify-center shadow-inner">
+              <Layers className="w-5 h-5" />
+            </div>
+            <h3 className="text-lg font-bold text-text-base">Recursive Subtasks</h3>
+            <p className="text-sm text-text-muted font-medium">
+              Break tasks down into subtask layers that automatically roll up parent completion.
+            </p>
+          </div>
+
+          <div className="p-6 bg-bg-card border border-border-base rounded-3xl shadow-sm flex flex-col gap-3">
+            <div className="w-10 h-10 bg-purple-50 dark:bg-purple-950 text-purple-500 rounded-2xl flex items-center justify-center shadow-inner">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <h3 className="text-lg font-bold text-text-base">Honest Streaks</h3>
+            <p className="text-sm text-text-muted font-medium">
+              Daily tasks lock once the day passes, building discipline and un-cheatable streaks.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
