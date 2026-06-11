@@ -860,7 +860,7 @@ export default function TrackerPage() {
           </td>
 
           <td className="px-4 py-4 whitespace-nowrap min-w-[120px]">
-            <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            <div className="flex items-center gap-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-200">
               <button onClick={() => handleMoveTask(task.id, "up")} className="p-1.5 hover:bg-bg-muted rounded-lg cursor-pointer" title="Move up"><ArrowUp className="w-3 h-3 text-text-muted" /></button>
               <button onClick={() => handleMoveTask(task.id, "down")} className="p-1.5 hover:bg-bg-muted rounded-lg cursor-pointer" title="Move down"><ArrowDown className="w-3 h-3 text-text-muted" /></button>
               <button onClick={() => triggerAddModal(task.id)} className="p-1.5 hover:bg-bg-muted rounded-lg cursor-pointer" title="Add subtask"><Plus className="w-3 h-3 text-text-muted" /></button>
